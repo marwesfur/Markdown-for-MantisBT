@@ -188,6 +188,17 @@ class MarkdownPlugin extends MantisFormattingPlugin {
 	}
 	
 	/**
+	 * Plain text processing.
+	 * @param string Event name
+	 * @param string Unformatted text
+	 * @param boolean Multiline text
+	 * @return multi Array with formatted text and multiline paramater
+	 */
+	function text( $p_event, $p_string, $p_multiline = true ) {
+		return $this->apply_basic_formatting( $p_string, $p_multiline );
+	}
+	
+	/**
 	 * RSS text processing.
 	 * 
 	 * @param  string  $p_event     Event name
