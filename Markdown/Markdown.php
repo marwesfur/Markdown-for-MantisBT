@@ -150,10 +150,39 @@ class MarkdownPlugin extends MantisFormattingPlugin {
 		
 		if ( 1 == plugin_config_get( 'process_markdown_text' ) ) {
 		
-			// apply markdown only when we have multiple lines
-			if (strstr($p_string, PHP_EOL))
-				$p_string = $this->string_process_markdown( $p_string, $p_multiline );
+			if ( $this->has_markdown_tag( $p_string ) )
+				$p_string = $this->string_process_markdown( $this->remove_markdown_tag($p_string), $p_multiline );
+			else 
+				$p_string = $this->apply_basic_formatting( $p_string, $p_multiline );
 		}
+		
+		return $p_string;
+	}
+	
+	private $markdown_tag = "usemarkdown";
+	
+	private function has_markdown_tag( $p_string ) {
+		return strncmp( $p_string, $this->markdown_tag, strlen($this->markdown_tag) ) == 0;
+	}
+	
+	private function remove_markdown_tag( $p_string ) {
+		return substr( $p_string, strlen($this->markdown_tag) );
+	}
+	
+	private function apply_basic_formatting( $p_string, $p_multiline = TRUE ) {
+		$p_string = string_strip_hrefs( $p_string );
+		$p_string = string_html_specialchars( $p_string );
+		$p_string = string_restore_valid_html_tags( $p_string, /* multiline = */ true );
+
+		if( $p_multiline ) {
+			$p_string = string_preserve_spaces_at_bol( $p_string );
+			$p_string = string_nl2br( $p_string );
+		}
+
+		$p_string = string_insert_hrefs( $p_string );
+
+		$p_string = string_process_bug_link( $p_string );
+		$p_string = string_process_bugnote_link( $p_string );
 		
 		return $p_string;
 	}
