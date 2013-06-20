@@ -151,7 +151,7 @@ class MarkdownPlugin extends MantisFormattingPlugin {
 		if ( 1 == plugin_config_get( 'process_markdown_text' ) ) {
 		
 			// apply markdown only when we have multiple lines
-			if (strstr($string, PHP_EOL))
+			if (strstr($p_string, PHP_EOL))
 				$p_string = $this->string_process_markdown( $p_string, $p_multiline );
 		}
 		
