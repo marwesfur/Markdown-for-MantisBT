@@ -148,15 +148,12 @@ class MarkdownPlugin extends MantisFormattingPlugin {
 		if ( FALSE === strpos( $_SERVER['PHP_SELF'], '/view.php' ) && 1 == plugin_config_get( 'process_markdown_view_php' ) )
 			return $p_string;
 		
-		// search for tag indicating usage of markdown
-		if (strncmp($p_string, "usemarkdown\n", strlen("usemarkdown\n")) != 0)
-			return $p_string;
+		if ( 1 == plugin_config_get( 'process_markdown_text' ) ) {
 		
-		// remove that tag
-		$p_string = substr($p_string, strlen("usemarkdown\n"));
-		
-		if ( 1 == plugin_config_get( 'process_markdown_text' ) )
-			$p_string = $this->string_process_markdown( $p_string, $p_multiline );
+			// apply markdown only when we have multiple lines
+			if (strstr($string, PHP_EOL))
+				$p_string = $this->string_process_markdown( $p_string, $p_multiline );
+		}
 		
 		return $p_string;
 	}
