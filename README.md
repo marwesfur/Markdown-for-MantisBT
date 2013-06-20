@@ -1,3 +1,7 @@
+# Changes by me (Markus)
+Using Markdown now requires an opt-in by placing the keyword "usemarkdown" at the very beginning of a text.
+Furthermore, if usemarkdown is not set, the "core formatting" is applied.
+
 # Markdown plugin for MantisBT
 It's help convert some Markdown to html-style.
 
