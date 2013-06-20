@@ -149,7 +149,7 @@ class MarkdownPlugin extends MantisFormattingPlugin {
 			return $p_string;
 		
 		// search for tag indicating usage of markdown
-		if (strncmp($p_string), "usemarkdown\n") != 0)
+		if (strncmp($p_string, "usemarkdown\n") != 0)
 			return $p_string;
 		
 		// remove that tag
