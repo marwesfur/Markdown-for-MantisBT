@@ -149,11 +149,11 @@ class MarkdownPlugin extends MantisFormattingPlugin {
 			return $p_string;
 		
 		// search for tag indicating usage of markdown
-		if (strncmp($p_string, "usemarkdown\n") != 0)
+		if (strncmp($p_string, "usemarkdown\n", strlen("usemarkdown\n")) != 0)
 			return $p_string;
 		
 		// remove that tag
-		$p_string = substr($p_string, strlen("usemarkdown\n"))
+		$p_string = substr($p_string, strlen("usemarkdown\n"));
 		
 		if ( 1 == plugin_config_get( 'process_markdown_text' ) )
 			$p_string = $this->string_process_markdown( $p_string, $p_multiline );
